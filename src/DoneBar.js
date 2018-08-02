@@ -17,7 +17,7 @@ let { width, height } = Dimensions.get('window');
 class DoneBar extends React.Component {
     static propTypes = {
         borderColor: PropTypes.string,
-        backgroundColor: PropTypes.color,
+        backgroundColor: PropTypes.string,
         keyboardType: PropTypes.string,
         includeLayoutAnimation: PropTypes.bool,
         text: PropTypes.string,
@@ -60,6 +60,17 @@ class DoneBar extends React.Component {
         }
     });
 
+    constructor(props) {
+        super(props);
+        if (props.borderColor) {
+            this.styles.barWrapper.borderTopWidth = 1;
+            this.styles.barWrapper.borderColor = props.borderColor;
+        }
+        if (props.backgroundColor) {
+            this.styles.barWrapper.backgroundColor = props.backgroundColor;
+        }
+    }
+
     componentWillMount(props) {
         const config = {
             duration: 250,
@@ -68,14 +79,6 @@ class DoneBar extends React.Component {
                 type: LayoutAnimation.Types.keyboard
             }
         };
-
-        if (props.borderColor) {
-            this.styles.barWrapper.borderTopWidth = 1;
-            this.styles.barWrapper.borderColor = props.borderColor;
-        }
-        if (props.backgroundColor) {
-            this.styles.barWrapper.backgroundColor = props.backgroundColor;
-        }
 
         this.keyboardWillChangeFrameListener = Keyboard.addListener('keyboardWillChangeFrame', ({ endCoordinates }) => {
             let { screenY } = endCoordinates;
@@ -113,7 +116,7 @@ class DoneBar extends React.Component {
                             this.props.onDone();
                         }}
                     >
-                        <Text style={styles.done}>{this.props.text}</Text>
+                        <Text style={this.styles.done}>{this.props.text}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={this.styles.bar} />
