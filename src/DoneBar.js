@@ -41,13 +41,8 @@ class DoneBar extends React.Component {
 
     styles = StyleSheet.create({
         barWrapper: {
-            // borderTopWidth: 1,
             backgroundColor: '#D3D5DB',
-            // borderColor: '#E5E5E5',
             position: 'absolute',
-            alignSelf: 'stretch',
-            left: 0,
-            right: 0,
         },
         bar: {
             height: 40,
